@@ -87,6 +87,11 @@ ax2.grid(visible=True, which='major', color='#666666', linestyle='--')
 
 step, probe_point_mean = mix.drawStepEvolutionFunc(num_repert, num_step, probe_point_status_mean_list)
 
+# numpyのバージョンアップにより、""ndarray from ragged nested sequences"の制限が厳しくなり、
+# animatplotの途中でエラーが出るようになった。そのための修正が以下の２行
+step = np.asanyarray(step, dtype=object)
+probe_point_mean = np.asanyarray(probe_point_mean, dtype=object)
+
 concentration = amp.blocks.Line(step, probe_point_mean, ax=ax2)
 
 t = np.linspace(0, num_repert, num_repert+1)
